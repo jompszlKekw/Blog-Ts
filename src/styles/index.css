@@ -13,3 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ---------- Auth Page------------ */
+@import url('./auth.css');
+
+/* ---------- Loading Page------------ */
+@import url('./loading.css');
