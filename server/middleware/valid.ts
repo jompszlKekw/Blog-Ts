@@ -8,7 +8,7 @@ export async function validRegister(
 ) {
   const { name, account, password }: IUser = req.body;
 
-  const errors : string[] = [];
+  const errors: string[] = [];
 
   if (!name) {
     errors.push("Please add your name");

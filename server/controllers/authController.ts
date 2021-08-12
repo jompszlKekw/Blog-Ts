@@ -7,11 +7,14 @@ import {
   generateActiveToken,
   generateRefreshToken,
 } from "../config/generateTokens";
-import { IDecodedToken } from "../config/interfaces";
+import { IDecodedToken, IGgPayload, IUserParams } from "../config/interfaces";
 import sendMail from "../config/sendMail";
 import { sendSMS } from "../config/sendSMS";
 import { validPhone, validateEmail } from "../middleware/valid";
 
+import { OAuth2Client } from "google-auth-library";
+
+const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
 const CLIENT_URL = `${process.env.BASE_URL}`;
 
 class AuthController {
@@ -66,15 +69,6 @@ class AuthController {
 
       res.json({ msg: "Account has been activated!" });
     } catch (err) {
-      let errMsg;
-
-      if (err.code === 11000) {
-        errMsg = Object.keys(err.keyValue)[0] + " alredy exists";
-      } else {
-        let name = Object.keys(err.errors)[0];
-        console.log({ name });
-        errMsg = err.errors[`${name}`].message;
-      }
       return res.status(500).json(err);
     }
   }
@@ -118,7 +112,43 @@ class AuthController {
 
       const access_token = generateAcessToken({ id: user._id });
 
-      res.json({ access_token });
+      res.json({ access_token, user });
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+  async googleLogin(req: Request, res: Response) {
+    try {
+      const { id_token } = req.body;
+      const verify = await client.verifyIdToken({
+        idToken: id_token,
+        audience: `${process.env.MAIL_CLIENT_ID}`,
+      });
+
+      const { email, email_verified, name, picture } = <IGgPayload>(
+        verify.getPayload()
+      );
+
+      if (!email_verified)
+        return res.status(500).json({ msg: "Email verification failed." });
+
+      const password = email + "your google secret password";
+      const passowordHash = await hash(password, 12);
+
+      const user = await User.findOne({ account: email });
+
+      if (user) {
+        loginUser(user, password, res);
+      } else {
+        const user = {
+          name,
+          account: email,
+          password: passowordHash,
+          avatar: picture,
+          type: "Login",
+        };
+        registerUser(user, res);
+      }
     } catch (err) {
       return res.status(500).json(err);
     }
@@ -145,6 +175,26 @@ async function loginUser(user: IUser, password: string, res: Response) {
     msg: "Login success",
     access_token,
     user: { ...user._doc, password: "" },
+  });
+}
+
+async function registerUser(user: IUserParams, res: Response) {
+  const newUser = new User(user);
+  await newUser.save();
+
+  const access_token = generateAcessToken({ id: newUser._id });
+  const refresh_token = generateRefreshToken({ id: newUser._id });
+
+  res.cookie("refreshtoken", refresh_token, {
+    httpOnly: true,
+    path: `/api/refresh_token`,
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30d
+  });
+
+  res.json({
+    msg: "Login success",
+    access_token,
+    user: { ...newUser._doc, password: "" },
   });
 }
 
