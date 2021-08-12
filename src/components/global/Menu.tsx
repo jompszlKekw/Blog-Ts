@@ -1,16 +1,16 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
-import { RootStore } from '../../utils/TypeScript'
+import { useSelector, useDispatch } from "react-redux";
+import { RootStore } from "../../utils/TypeScript";
 
-import { logout } from '../../redux/actions/authAction'
+import { logout } from "../../redux/actions/authAction";
 
 function Menu() {
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootStore) => state);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   const bfLoginLinks = [
     { label: "Login", path: "/login" },
@@ -22,11 +22,11 @@ function Menu() {
     { label: "CreateBlog", path: "/create_blog" },
   ];
 
-  const navLinks = auth.access_token ? afLoginLinks : bfLoginLinks
+  const navLinks = auth.access_token ? afLoginLinks : bfLoginLinks;
 
   const isActive = (pn: string) => {
-    if(pn === pathname) return 'active'
-  }
+    if (pn === pathname) return "active";
+  };
 
   return (
     <ul className="navbar-nav ms-auto">
@@ -38,8 +38,7 @@ function Menu() {
         </li>
       ))}
 
-      {
-        auth.user &&
+      {auth.user && (
         <li className="nav-item dropdown">
           <span
             className="nav-link dropdown-toggle"
@@ -48,9 +47,7 @@ function Menu() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img src={auth.user.avatar} alt="avatar"
-            className="avatar" 
-            />
+            <img src={auth.user.avatar} alt="avatar" className="avatar" />
           </span>
 
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -63,14 +60,17 @@ function Menu() {
               <hr className="dropdown-divider" />
             </li>
             <li>
-              <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())} >
+              <Link
+                className="dropdown-item"
+                to="/"
+                onClick={() => dispatch(logout())}
+              >
                 Logout
               </Link>
             </li>
           </ul>
         </li>
-      }
-
+      )}
     </ul>
   );
 }

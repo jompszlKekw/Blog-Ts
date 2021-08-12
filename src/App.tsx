@@ -8,14 +8,14 @@ import Footer from "./components/global/Footer";
 
 import { Alert } from "./components/alert/Alert";
 
-import { refreshToken } from './redux/actions/authAction'
+import { refreshToken } from "./redux/actions/authAction";
 
 function App() {
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(refreshToken())
-  }, [dispatch])
+    dispatch(refreshToken());
+  }, [dispatch]);
 
   return (
     <div className="container">

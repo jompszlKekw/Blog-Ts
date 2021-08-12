@@ -4,23 +4,26 @@ import { useSelector } from "react-redux";
 
 import LoginPass from "../components/auth/LoginPass";
 import LoginSMS from "../components/auth/LoginSMS";
+import SocialLogin from "../components/auth/SocialLogin";
 
-import { RootStore } from '../utils/TypeScript'
+import { RootStore } from "../utils/TypeScript";
 
 const Login = () => {
   const [sms, setSms] = useState(false);
-  const history = useHistory()
+  const history = useHistory();
 
-  const { auth } = useSelector((state: RootStore) => state)
+  const { auth } = useSelector((state: RootStore) => state);
 
   useEffect(() => {
-    if(auth.access_token) history.push('/')
-  }, [auth.access_token, history])
+    if (auth.access_token) history.push("/");
+  }, [auth.access_token, history]);
 
   return (
     <div className="auth_page">
       <div className="auth_box">
         <h3 className="text-uppercase text-center mb-4">Login</h3>
+
+        <SocialLogin />
 
         {sms ? <LoginSMS /> : <LoginPass />}
 
