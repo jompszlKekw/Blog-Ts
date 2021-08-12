@@ -4,7 +4,7 @@ import { RootStore } from "../../utils/TypeScript";
 import Loading from "./Loading";
 import Toast from "./Toast";
 
-function Alert() {
+export function Alert() {
   const { alert } = useSelector((state: RootStore) => state);
 
   return (
@@ -22,4 +22,10 @@ function Alert() {
   );
 }
 
-export default Alert;
+export function showErrMsg(msg: string) {
+  return <div className="errMsg">{msg}</div>
+}
+
+export function showSuccessMsg(msg: string) {
+  return <div className="successMsg">{msg}</div>
+}
