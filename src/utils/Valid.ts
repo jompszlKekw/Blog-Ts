@@ -1,9 +1,8 @@
-import { IUserRegister } from './TypeScript'
-
+import { IUserRegister } from "./TypeScript";
 
 export function ValidRegister(userRegister: IUserRegister) {
-  const { name, account, password, cf_password } = userRegister
-  const errors: string[] = []
+  const { name, account, password, cf_password } = userRegister;
+  const errors: string[] = [];
 
   if (!name) {
     errors.push("Please add your name");
@@ -19,14 +18,14 @@ export function ValidRegister(userRegister: IUserRegister) {
 
   if (password.length < 6) {
     errors.push("password must be at least 6 chars");
-  } else if(password !== cf_password) {
-    errors.push("Confitm password did not match")
+  } else if (password !== cf_password) {
+    errors.push("Confitm password did not match");
   }
 
   return {
     errMsg: errors,
-    errLength: errors.length
-  }
+    errLength: errors.length,
+  };
 }
 
 // export const ValidRegister = (userRegister: IUserRegister) => {

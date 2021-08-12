@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import RegisterForm from "../components/auth/RegisterForm";
 
 function Register() {
-
   return (
     <div className="auth_page">
       <div className="auth_box">
@@ -12,7 +11,7 @@ function Register() {
 
         <RegisterForm />
 
-        <p className="mt-2" >
+        <p className="mt-2">
           {`Already have an account? `}
           <Link to={`/login`} style={{ color: "crimson" }}>
             Login now

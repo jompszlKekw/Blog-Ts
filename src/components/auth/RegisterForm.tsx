@@ -55,7 +55,6 @@ const RegisterForm = () => {
           value={account}
           onChange={handleChangeInput}
           placeholder="Example@gamil.com/+5521912345689"
-
         />
       </div>
 
@@ -73,7 +72,6 @@ const RegisterForm = () => {
             value={password}
             onChange={handleChangeInput}
             placeholder="Password must be at least 6 chars"
-
           />
 
           <small onClick={() => setTypePass(!typePass)}>
@@ -96,7 +94,6 @@ const RegisterForm = () => {
             value={cf_password}
             onChange={handleChangeInput}
             placeholder="Your confirm password"
-
           />
 
           <small onClick={() => setTypeCfPass(!typeCfPass)}>
@@ -104,11 +101,8 @@ const RegisterForm = () => {
           </small>
         </div>
       </div>
-      
 
-      <button
-        type="submit"
-        className="btn btn-dark w-100 my-1">
+      <button type="submit" className="btn btn-dark w-100 my-1">
         Register
       </button>
     </form>

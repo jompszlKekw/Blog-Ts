@@ -23,9 +23,9 @@ export function Alert() {
 }
 
 export function showErrMsg(msg: string) {
-  return <div className="errMsg">{msg}</div>
+  return <div className="errMsg">{msg}</div>;
 }
 
 export function showSuccessMsg(msg: string) {
-  return <div className="successMsg">{msg}</div>
+  return <div className="successMsg">{msg}</div>;
 }
