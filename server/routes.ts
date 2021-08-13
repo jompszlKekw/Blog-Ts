@@ -17,4 +17,7 @@ routes.get("/api/logout", authController.logout);
 routes.post("/api/google_login", authController.googleLogin);
 routes.post("/api/facebook_login", authController.facebookLogin);
 
+routes.post("/api/login_SMS", authController.loginSMS);
+routes.post("/api/sms_verify", authController.smsVerify);
+
 export { routes };

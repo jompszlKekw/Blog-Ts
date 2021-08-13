@@ -12,7 +12,7 @@ import {
 } from "../config/generateTokens";
 import { IDecodedToken, IGgPayload, IUserParams } from "../config/interfaces";
 import sendMail from "../config/sendMail";
-import { sendSMS } from "../config/sendSMS";
+import { sendSMS, smsOTP, smsVerify } from "../config/sendSMS";
 import { validPhone, validateEmail } from "../middleware/valid";
 
 const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
@@ -185,6 +185,49 @@ class AuthController {
         };
         registerUser(user, res);
       }
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+  async loginSMS(req: Request, res: Response) {
+    try {
+      const { phone } = req.body;
+
+      const data = await smsOTP(phone, 'sms')
+
+      res.json( data )
+
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+  async smsVerify(req: Request, res: Response) {
+    try {
+      const { phone, code } = req.body;
+
+      const data = await smsVerify(phone, code)
+
+      if(data?.valid) return res.status(400).json({ msg: "Invalid Authentication." });
+
+      const password = phone + "your phone secret password";
+      const passowordHash = await hash(password, 12);
+
+      const user = await User.findOne({ account: phone });
+
+      if (user) {
+        loginUser(user, password, res);
+      } else {
+        const user = {
+          name: phone,
+          account: phone,
+          password: passowordHash,
+          type: "login",
+        };
+        registerUser(user, res);
+      }
+
+      res.json(data)
+
     } catch (err) {
       return res.status(500).json(err);
     }
