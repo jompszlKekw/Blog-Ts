@@ -193,10 +193,9 @@ class AuthController {
     try {
       const { phone } = req.body;
 
-      const data = await smsOTP(phone, 'sms')
+      const data = await smsOTP(phone, "sms");
 
-      res.json( data )
-
+      res.json(data);
     } catch (err) {
       return res.status(500).json(err);
     }
@@ -205,9 +204,10 @@ class AuthController {
     try {
       const { phone, code } = req.body;
 
-      const data = await smsVerify(phone, code)
+      const data = await smsVerify(phone, code);
 
-      if(data?.valid) return res.status(400).json({ msg: "Invalid Authentication." });
+      if (data?.valid)
+        return res.status(400).json({ msg: "Invalid Authentication." });
 
       const password = phone + "your phone secret password";
       const passowordHash = await hash(password, 12);
@@ -226,8 +226,7 @@ class AuthController {
         registerUser(user, res);
       }
 
-      res.json(data)
-
+      res.json(data);
     } catch (err) {
       return res.status(500).json(err);
     }

@@ -29,18 +29,22 @@ client.messages
 
 export async function smsOTP(to: string, channel: string) {
   try {
-    const data = await client.verify.services(serviceID).verifications.create({to, channel}) 
+    const data = await client.verify
+      .services(serviceID)
+      .verifications.create({ to, channel });
     return data;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
 export async function smsVerify(to: string, code: string) {
   try {
-    const data = await client.verify.services(serviceID).verificationChecks.create({to, code}) 
+    const data = await client.verify
+      .services(serviceID)
+      .verificationChecks.create({ to, code });
     return data;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }

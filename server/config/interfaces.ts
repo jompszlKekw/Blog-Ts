@@ -1,3 +1,6 @@
+import { Request } from "express";
+import { IUser } from "../models/userModel";
+
 export interface INewUser {
   name: string;
   account: string;
@@ -23,4 +26,8 @@ export interface IUserParams {
   password: string;
   avatar?: string;
   type: string;
+}
+
+export interface IReqAuth extends Request {
+  user?: IUser;
 }
