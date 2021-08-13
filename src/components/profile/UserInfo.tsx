@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { RootStore, InputChange, IUserProfile } from "../../utils/TypeScript";
+import { updateUser } from "../../redux/actions/profileAction";
+
+import {
+  RootStore,
+  InputChange,
+  IUserProfile,
+  FormSubmit,
+} from "../../utils/TypeScript";
 
 import NotFound from "../global/NotFound";
 
@@ -36,11 +43,18 @@ function UserInfo() {
     }
   };
 
+  const handleSubmit = (e: FormSubmit) => {
+    e.preventDefault();
+    if (avatar || name) {
+      dispatch(updateUser(avatar as File, name, auth));
+    }
+  };
+
   const { name, account, avatar, password, cf_password } = user;
 
   if (!auth.user) return <NotFound />;
   return (
-    <form className="profile_info">
+    <form className="profile_info" onSubmit={handleSubmit}>
       <div className="info_avatar">
         <img
           src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
