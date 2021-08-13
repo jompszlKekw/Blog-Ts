@@ -52,13 +52,15 @@ function Menu() {
 
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <Link className="dropdown-item" to="/profile">
+              <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>
                 Profile
               </Link>
             </li>
+
             <li>
               <hr className="dropdown-divider" />
             </li>
+
             <li>
               <Link
                 className="dropdown-item"
