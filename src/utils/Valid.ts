@@ -22,10 +22,21 @@ export function ValidRegister(userRegister: IUserRegister) {
     errors.push("Confitm password did not match");
   }
 
+  const msg = checkPassword(password, cf_password)
+  if(msg) errors.push(msg)
+
   return {
     errMsg: errors,
     errLength: errors.length,
   };
+}
+
+export function checkPassword(password: string, cf_password: string) {
+  if (password.length < 6) {
+    return ("password must be at least 6 chars");
+  } else if (password !== cf_password) {
+    return ("Confitm password did not match");
+  }
 }
 
 export function validPhone(phone: string) {
