@@ -28,17 +28,19 @@ class UserController {
     if (!req.user)
       return res.status(400).json({ msg: "Invalid Authentication" });
 
-      if(req.user.type !== 'register')
-      return res.status(400).json({ msg: `Quick login account with ${req.user.type} can't use this function` });
+    if (req.user.type !== "register")
+      return res.status(400).json({
+        msg: `Quick login account with ${req.user.type} can't use this function`,
+      });
 
     try {
       const { password } = req.body;
-      const passwordHash = await hash(password, 12)
+      const passwordHash = await hash(password, 12);
 
       const user = await User.findOneAndUpdate(
         { _id: req.user._id },
         {
-          password: passwordHash
+          password: passwordHash,
         }
       );
 
