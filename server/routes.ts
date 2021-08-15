@@ -24,5 +24,6 @@ routes.post("/api/login_SMS", authController.loginSMS);
 routes.post("/api/sms_verify", authController.smsVerify);
 
 routes.patch("/api/user", auth, userController.updateUser);
+routes.patch("/api/reset_password", auth, userController.resetPassword);
 
 export { routes };

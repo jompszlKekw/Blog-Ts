@@ -146,7 +146,7 @@ class AuthController {
           account: email,
           password: passowordHash,
           avatar: picture,
-          type: "login",
+          type: "google",
         };
         registerUser(user, res);
       }
@@ -181,7 +181,7 @@ class AuthController {
           account: email,
           password: passowordHash,
           avatar: picture.data.url,
-          type: "login",
+          type: "facebook",
         };
         registerUser(user, res);
       }
@@ -221,7 +221,7 @@ class AuthController {
           name: phone,
           account: phone,
           password: passowordHash,
-          type: "login",
+          type: "sms",
         };
         registerUser(user, res);
       }
@@ -235,10 +235,15 @@ class AuthController {
 
 async function loginUser(user: IUser, password: string, res: Response) {
   const isMatch = await compare(password, user.password);
-  if (!isMatch)
+  if (!isMatch) {
+    let msgError = user.type === 'register' 
+      ? 'Password or Email/Phone number is incorrect' 
+      : `Password or Email/Phone number is incorrect. This account login with ${user.type}`
+    
     return res
-      .status(500)
-      .json({ msg: "Password or Email/Phone number is incorrect" });
+    .status(400)
+    .json({ msg: msgError });
+  }
 
   const access_token = generateAcessToken({ id: user._id });
   const refresh_token = generateRefreshToken({ id: user._id });
