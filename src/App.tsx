@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(refreshToken());
-    dispatch(getCategories())
+    dispatch(getCategories());
   }, [dispatch]);
 
   return (

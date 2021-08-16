@@ -16,7 +16,7 @@ export function Alert() {
       )}
 
       {alert.success && (
-        <Toast title="Errors" body={alert.success} bgColor="bg-success" />
+        <Toast title="Success" body={alert.success} bgColor="bg-success" />
       )}
     </div>
   );
