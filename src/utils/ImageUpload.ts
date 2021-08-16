@@ -12,11 +12,11 @@ export const checkImage = (file: File) => {
 export const imageUpload = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
-  formData.append("upload_preset", "xwqohnif");
-  formData.append("cloud_name", "devat-channel");
+  formData.append("upload_preset", "");
+  formData.append("cloud_name", "");
 
   const res = await fetch(
-    "https://api.cloudinary.com/v1_1/devat-channel/upload",
+    "",
     {
       method: "POST",
       body: formData,
