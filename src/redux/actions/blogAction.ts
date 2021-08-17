@@ -18,7 +18,7 @@ export const createBlog =
       }
 
       const newBlog = { ...blog, thumbnail: url };
-      const res = await postAPI('createBlog', newBlog, token)
+      await postAPI('createBlog', newBlog, token)
 
       dispatch({ type: ALERT, payload: { loading: false } });
     } catch (err: any) {
