@@ -31,6 +31,7 @@ routes.post("/api/sms_verify", authController.smsVerify);
 
 routes.patch("/api/user", auth, userController.updateUser);
 routes.patch("/api/reset_password", auth, userController.resetPassword);
+routes.get("/api/user/:id", userController.getUser);
 
 routes.post("/api/category", auth, categoryController.createCategory);
 routes.get("/api/category", categoryController.getCategory);

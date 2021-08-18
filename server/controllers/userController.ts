@@ -1,5 +1,5 @@
 import { IReqAuth } from "./../config/interfaces";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { User } from "../models/userModel";
 import { hash } from "bcrypt";
 
@@ -45,6 +45,14 @@ class UserController {
       );
 
       res.json({ msg: "Reset password Success" });
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+  async getUser(req: Request, res: Response) {
+    try {
+      const user = await User.findById(req.params.id).select("-password");
+      res.json(user);
     } catch (err) {
       return res.status(500).json(err);
     }
