@@ -48,7 +48,7 @@ class CategoryController {
         {
           _id: req.params.id,
         },
-        { name: req.body.name }
+        { name: req.body.name.toLoweCase() }
       );
 
       res.json({ msg: "Update Success" });
