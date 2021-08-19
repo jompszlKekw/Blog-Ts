@@ -224,6 +224,20 @@ class BlogController {
       return res.status(500).json({ msg: err.message });
     }
   }
+  async getBlog(req: Request, res: Response) {
+    try {
+      const blog = await Blog.findOne({ _id: req.params.id }).populate(
+        "user",
+        "-password"
+      );
+
+      if (!blog) return res.status(500).json({ msg: "Blog does not exist." });
+
+      return res.json(blog);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
 }
 
 export { BlogController };
