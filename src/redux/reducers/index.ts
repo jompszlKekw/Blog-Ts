@@ -4,6 +4,7 @@ import alert from "./alertReducer";
 import categories from "./categoryReducer";
 import homeBlogs from "./homeBlogsReducer";
 import blogsCategory from "./blogsCategoryReducer";
+import blogsUser from "./blogsUserReducer";
 import otherInfo from "./otherInfoReducer";
 
 export default combineReducers({
@@ -13,4 +14,5 @@ export default combineReducers({
   homeBlogs,
   blogsCategory,
   otherInfo,
+  blogsUser,
 });

@@ -7,7 +7,7 @@ import { RootStore } from "../utils/TypeScript";
 import CardVert from "../components/cards/CardVert";
 import Loading from "../components/global/Loading";
 
-function Home() {
+const Home = () => {
   const { homeBlogs } = useSelector((state: RootStore) => state);
 
   if (homeBlogs.length === 0) return <Loading />;
@@ -34,16 +34,17 @@ function Home() {
 
           {homeBlog.count > 4 && (
             <Link
-              className="text-end d-block mt-2 mb-3"
+              className="text-end d-block mt-2 mb-3 
+              text-decoration-none"
               to={`/blogs/${homeBlog.name}`}
             >
-              Read More &gt;$gt;
+              Read more &gt;&gt;
             </Link>
           )}
         </div>
       ))}
     </div>
   );
-}
+};
 
 export default Home;
