@@ -1,12 +1,13 @@
 import { Router } from "express";
 
+import { validRegister } from "./middleware/valid";
+import { auth } from "./middleware/auth";
+
 import { AuthController } from "./controllers/authController";
 import { UserController } from "./controllers/userController";
 import { CategoryController } from "./controllers/categoryController";
-
-import { validRegister } from "./middleware/valid";
-import { auth } from "./middleware/auth";
 import { BlogController } from "./controllers/blogController";
+import { CommentController } from "./controllers/commentController";
 
 const routes = Router();
 
@@ -14,6 +15,7 @@ const authController = new AuthController();
 const userController = new UserController();
 const categoryController = new CategoryController();
 const blogController = new BlogController();
+const commentController = new CommentController();
 
 routes.post("/api/register", validRegister, authController.register);
 
@@ -43,5 +45,7 @@ routes.get("/api/home/blogs", blogController.getHomeBlogs);
 routes.get("/api/blogs/category/:id", blogController.getBlogsByCategory);
 routes.get("/api/blogs/user/:id", blogController.getBlogsByUser);
 routes.get("/api/blog/:id", blogController.getBlog);
+
+routes.post("/api/comment", auth, commentController.createComment);
 
 export { routes };
