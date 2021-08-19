@@ -40,6 +40,7 @@ routes.delete("/api/category/:id", auth, categoryController.deleteCategory);
 
 routes.post("/api/createBlog", auth, blogController.createBlog);
 routes.get("/api/home/blogs", blogController.getHomeBlogs);
-routes.get("/api/blogs/:category_id", blogController.getBlogsByCategoryId);
+routes.get("/api/blogs/category/:id", blogController.getBlogsByCategory);
+routes.get("/api/blogs/user/:id", blogController.getBlogsByUser);
 
 export { routes };
