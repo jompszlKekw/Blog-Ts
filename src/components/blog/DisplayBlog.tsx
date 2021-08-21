@@ -7,12 +7,14 @@ import { IBlog, RootStore, IUser, IComment } from "../../utils/TypeScript";
 import Input from "../comments/Input";
 import Comments from "../comments/Comments";
 
+import { createComment } from "../../redux/actions/commentAction";
+
 interface IProps {
   blog: IBlog;
 }
 
 const DisplayBlog: React.FC<IProps> = ({ blog }) => {
-  const { auth } = useSelector((state: RootStore) => state);
+  const { auth, comment } = useSelector((state: RootStore) => state);
   const dispatch = useDispatch();
 
   const [showComments, setShowComments] = useState<IComment[]>([]);
@@ -29,24 +31,30 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
     };
 
     setShowComments([data, ...showComments]);
+    dispatch(createComment(data, auth.access_token));
   };
 
+  useEffect(() => {
+    if (comment.data.length === 0) return;
+    setShowComments(comment.data);
+  }, [comment.data]);
+
   return (
-    <div className="">
+    <div>
       <h2
-        className="text-center my-3 text-capitalize fs-1 "
+        className="text-center my-3 text-capitalize fs-1"
         style={{ color: "#ff7a00" }}
       >
         {blog.title}
       </h2>
 
-      <div className="text-end" style={{ color: "teal" }}>
+      <div className="text-end fst-italic" style={{ color: "teal" }}>
         <small>
           {typeof blog.user !== "string" && `By: ${blog.user.name}`}
         </small>
 
         <small className="ms-2">
-          {new Date(blog.createdAt).toLocaleDateString()}
+          {new Date(blog.createdAt).toLocaleString()}
         </small>
       </div>
 
@@ -57,12 +65,13 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
       />
 
       <hr className="my-1" />
-      <h3 style={{ color: "#ff7a00" }}> Comments </h3>
+      <h3 style={{ color: "#ff7a00" }}>✩ Comments ✩</h3>
+
       {auth.user ? (
         <Input callback={handleComment} />
       ) : (
         <h5>
-          Please <Link to={`/login?blog/${blog._id}`}>Login</Link> to comment.
+          Please <Link to={`/login?blog/${blog._id}`}>login</Link> to comment.
         </h5>
       )}
 
