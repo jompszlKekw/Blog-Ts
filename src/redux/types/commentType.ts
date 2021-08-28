@@ -2,6 +2,7 @@ import { IComment } from "../../utils/TypeScript";
 
 export const CREATE_COMMENT = "CREATE_COMMENT";
 export const GET_COMMENTS = "GET_COMMENTS";
+export const REPLY_COMMENTS = "REPLY_COMMENTS";
 
 export interface ICommentState {
   data: IComment[];
@@ -18,4 +19,12 @@ export interface IGetCommentsType {
   payload: ICommentState;
 }
 
-export type ICommentType = ICreateCommentType | IGetCommentsType;
+export interface IReplyCommentType {
+  type: typeof REPLY_COMMENTS;
+  payload: IComment;
+}
+
+export type ICommentType =
+  | ICreateCommentType
+  | IGetCommentsType
+  | IReplyCommentType;
