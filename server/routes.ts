@@ -47,5 +47,6 @@ routes.get("/api/blogs/user/:id", blogController.getBlogsByUser);
 routes.get("/api/blog/:id", blogController.getBlog);
 
 routes.post("/api/comment", auth, commentController.createComment);
+routes.get("/api/comments/blog/:id", commentController.getCommets);
 
 export { routes };
