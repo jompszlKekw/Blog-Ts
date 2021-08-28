@@ -7,6 +7,7 @@ export interface IComment extends Document {
   content: string;
   replyCM: string[];
   reply_user: string;
+  comment_root: string;
   _doc: object;
 }
 
@@ -18,6 +19,7 @@ const commentSchema: Schema = new Schema(
     content: { type: String, required: true },
     replyCM: [{ type: Schema.Types.ObjectId, ref: "comment" }],
     reply_user: { type: Schema.Types.ObjectId, ref: "user" },
+    comment_root: { type: Schema.Types.ObjectId, ref: "comment" },
   },
   { timestamps: true }
 );
