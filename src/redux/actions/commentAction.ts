@@ -1,3 +1,4 @@
+import { deleteAPI, patchAPI } from './../../utils/FetchData';
 import { Dispatch } from 'redux';
 
 import { ALERT, IAlertType } from '../types/alertType';
@@ -11,6 +12,9 @@ import {
   REPLY_COMMENTS,
   UPDATE_COMMENTS,
   UPDATE_REPLY,
+  IDeleteType,
+  DELETE_REPLY,
+  DELETE_COMMENTS,
 } from '../types/commentType';
 
 import { IComment } from '../../utils/TypeScript';
@@ -72,8 +76,27 @@ export const updateComment =
         type: data.comment_root ? UPDATE_REPLY : UPDATE_COMMENTS,
         payload: data,
       });
-      console.log({ data, token });
-      // const res = await postAPI("comment", data, token);
+      await patchAPI(
+        `comment/${data._id}`,
+        {
+          content: data.content,
+        },
+        token
+      );
+    } catch (err: any) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
+
+export const deleteComment =
+  (data: IComment, token: string) =>
+  async (dispatch: Dispatch<IAlertType | IDeleteType>) => {
+    try {
+      dispatch({
+        type: data.comment_root ? DELETE_REPLY : DELETE_COMMENTS,
+        payload: data,
+      });
+      await deleteAPI(`comment/${data._id}`, token);
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
