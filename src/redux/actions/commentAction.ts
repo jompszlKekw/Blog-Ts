@@ -7,7 +7,10 @@ import {
   ICreateCommentType,
   IGetCommentsType,
   IReplyCommentType,
+  IUpdateType,
   REPLY_COMMENTS,
+  UPDATE_COMMENTS,
+  UPDATE_REPLY,
 } from "../types/commentType";
 
 import { IComment } from "../../utils/TypeScript";
@@ -53,6 +56,22 @@ export const replyComment =
         type: REPLY_COMMENTS,
         payload: { ...res.data, user: data.user, reply_user: data.reply_user },
       });
+    } catch (err: any) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
+
+
+export const updateComment =
+  (data: IComment, token: string) =>
+  async (dispatch: Dispatch<IAlertType | IUpdateType>) => {
+    try {
+      dispatch({
+        type: data.comment_root ? UPDATE_REPLY : UPDATE_COMMENTS,
+        payload: data,
+      });
+      console.log({ data, token })
+      // const res = await postAPI("comment", data, token);
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
