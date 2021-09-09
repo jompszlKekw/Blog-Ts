@@ -167,6 +167,25 @@ class CommentController {
       return res.status(500).json(err);
     }
   }
+  async updateComment(req: IReqAuth, res: Response) {
+    if (!req.user)
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
+
+    try {
+      const { content } = req.body;
+
+      const comment = await Comment.findOneAndUpdate({
+        _id: req.params.id, user: req.user.id
+      }, { content })
+
+      if(!comment)
+        return res.status(400).json({ msg: 'Comment does not exits.' });
+
+      return res.json({ msg: 'Update Success' });
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
 }
 
 export { CommentController };
