@@ -51,34 +51,43 @@ class CommentController {
               },
               {
                 $lookup: {
-                  from: "users",
-                  localField: "user",
-                  foreignField: "_id",
-                  as: "user",
+                  "from": "users",
+                  "let": { user_id: "$user" },
+                  "pipeline": [
+                    { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                    { $project: { name: 1, avatar: 1 } }
+                  ],
+                  "as": "user",
                 },
               },
               { $unwind: "$user" },
               {
                 $lookup: {
-                  from: "comments",
-                  let: { cm_id: "$replyCM" },
-                  pipeline: [
+                  "from": "comments",
+                  "let": { cm_id: "$replyCM" },
+                  "pipeline": [
                     { $match: { $expr: { $in: ["$_id", "$$cm_id"] } } },
                     {
                       $lookup: {
-                        from: "users",
-                        localField: "user",
-                        foreignField: "_id",
-                        as: "user",
+                        "from": "users",
+                        "let": { user_id: "$user" },
+                        "pipeline": [
+                          { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                          { $project: { name: 1, avatar: 1 } }
+                        ],
+                        "as": "user",
                       },
                     },
                     { $unwind: "$user" },
                     {
                       $lookup: {
-                        from: "users",
-                        localField: "reply_user",
-                        foreignField: "_id",
-                        as: "reply_user",
+                        "from": "users",
+                        "let": { user_id: "$reply_user" },
+                        "pipeline": [
+                          { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                          { $project: { name: 1, avatar: 1 } }
+                        ],
+                        "as": "reply_user",
                       },
                     },
                     { $unwind: "$reply_user" },
