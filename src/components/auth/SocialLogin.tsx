@@ -1,13 +1,13 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   FacebookLogin,
   FacebookLoginAuthResponse,
-} from "react-facebook-login-lite";
-import { GoogleLogin, GoogleLoginResponse } from "react-google-login-lite";
+} from 'react-facebook-login-lite';
+import { GoogleLogin, GoogleLoginResponse } from 'react-google-login-lite';
 
-import { googleLogin, facebookLogin } from "../../redux/actions/authAction";
+import { googleLogin, facebookLogin } from '../../redux/actions/authAction';
 
 function SocialLogin() {
   const dispatch = useDispatch();

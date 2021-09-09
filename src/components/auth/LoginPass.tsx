@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { InputChange, FormSubmit } from "../../utils/TypeScript";
-import { login } from "../../redux/actions/authAction";
+import { InputChange, FormSubmit } from '../../utils/TypeScript';
+import { login } from '../../redux/actions/authAction';
 
 const LoginPass = () => {
-  const initialState = { account: "", password: "" };
+  const initialState = { account: '', password: '' };
   const [userLogin, setUserLogin] = useState(initialState);
   const { account, password } = userLogin;
 
@@ -47,7 +47,7 @@ const LoginPass = () => {
 
         <div className="pass">
           <input
-            type={typePass ? "text" : "password"}
+            type={typePass ? 'text' : 'password'}
             className="form-control"
             id="password"
             name="password"
@@ -56,7 +56,7 @@ const LoginPass = () => {
           />
 
           <small onClick={() => setTypePass(!typePass)}>
-            {typePass ? "Hide" : "Show"}
+            {typePass ? 'Hide' : 'Show'}
           </small>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import { IUser } from "../../utils/TypeScript";
-import { GET_OTHER_INFO, IGetOtherInfoType } from "../types/profileType";
+import { IUser } from '../../utils/TypeScript';
+import { GET_OTHER_INFO, IGetOtherInfoType } from '../types/profileType';
 
 const otehrInfoReducer = (
   state: IUser[] = [],

@@ -1,7 +1,7 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { RootStore, IBlog, InputChange } from "../../utils/TypeScript";
+import { RootStore, IBlog, InputChange } from '../../utils/TypeScript';
 
 interface IProps {
   blog: IBlog;
@@ -38,7 +38,7 @@ const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
 
         <small
           className="text-muted position-absolute"
-          style={{ bottom: 0, right: "3px", opacity: "0.3" }}
+          style={{ bottom: 0, right: '3px', opacity: '0.3' }}
         >
           {blog.title.length}/50
         </small>
@@ -58,14 +58,14 @@ const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
           className="form-control"
           rows={4}
           value={blog.description}
-          style={{ resize: "none" }}
+          style={{ resize: 'none' }}
           name="description"
           onChange={handleChangeInput}
         />
 
         <small
           className="text-muted position-absolute"
-          style={{ bottom: 0, right: "3px", opacity: "0.3" }}
+          style={{ bottom: 0, right: '3px', opacity: '0.3' }}
         >
           {blog.description.length}/200
         </small>

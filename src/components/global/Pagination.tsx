@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 interface IProps {
   total: number;
@@ -13,8 +13,8 @@ const Pagination: React.FC<IProps> = ({ total, callback }) => {
   const history = useHistory();
 
   const isActive = (index: number) => {
-    if (index === page) return "active";
-    return "";
+    if (index === page) return 'active';
+    return '';
   };
 
   const handlePagination = (num: number) => {
@@ -28,7 +28,7 @@ const Pagination: React.FC<IProps> = ({ total, callback }) => {
   }, [history.location.search]);
 
   return (
-    <nav aria-label="Page navigation example" style={{ cursor: "pointer" }}>
+    <nav aria-label="Page navigation example" style={{ cursor: 'pointer' }}>
       <ul className="pagination">
         {page > 1 && (
           <li className="page-item" onClick={() => handlePagination(page - 1)}>

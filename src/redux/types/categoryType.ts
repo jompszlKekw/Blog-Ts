@@ -1,9 +1,9 @@
-import { ICategory } from "../../utils/TypeScript";
+import { ICategory } from '../../utils/TypeScript';
 
-export const CREATE_CATEGORY = "CREATE_CATEGORY";
-export const GET_CATEGORY = "GET_CATEGORY";
-export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
-export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const CREATE_CATEGORY = 'CREATE_CATEGORY';
+export const GET_CATEGORY = 'GET_CATEGORY';
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 
 export interface ICreateCategory {
   type: typeof CREATE_CATEGORY;

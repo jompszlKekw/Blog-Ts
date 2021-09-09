@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import NotFound from "../../components/global/NotFound";
-import CardVert from "../../components/cards/CardVert";
-import Pagination from "../../components/global/Pagination";
+import NotFound from '../../components/global/NotFound';
+import CardVert from '../../components/cards/CardVert';
+import Pagination from '../../components/global/Pagination';
 
-import { IBlog, IParams, RootStore } from "../../utils/TypeScript";
-import { getBlogsByCategoryId } from "../../redux/actions/blogAction";
+import { IBlog, IParams, RootStore } from '../../utils/TypeScript';
+import { getBlogsByCategoryId } from '../../redux/actions/blogAction';
 
 function BlogsByCategory() {
   const { categories, blogsCategory } = useSelector(
@@ -16,7 +16,7 @@ function BlogsByCategory() {
   const dispatch = useDispatch();
   const { slug } = useParams<IParams>();
 
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState('');
   const [blogs, setBlogs] = useState<IBlog[]>();
   const [total, setTotal] = useState(0);
 

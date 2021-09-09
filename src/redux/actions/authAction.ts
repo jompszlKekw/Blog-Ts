@@ -1,10 +1,10 @@
-import { Dispatch } from "redux";
-import { AUTH, IAuthType } from "../types/authType";
-import { ALERT, IAlertType } from "../types/alertType";
+import { Dispatch } from 'redux';
+import { AUTH, IAuthType } from '../types/authType';
+import { ALERT, IAlertType } from '../types/alertType';
 
-import { IUserLogin, IUserRegister } from "../../utils/TypeScript";
-import { postAPI, getAPI } from "../../utils/FetchData";
-import { ValidRegister, validPhone } from "../../utils/Valid";
+import { IUserLogin, IUserRegister } from '../../utils/TypeScript';
+import { postAPI, getAPI } from '../../utils/FetchData';
+import { ValidRegister, validPhone } from '../../utils/Valid';
 
 export const login =
   (userLogin: IUserLogin) =>
@@ -12,7 +12,7 @@ export const login =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await postAPI("login", userLogin);
+      const res = await postAPI('login', userLogin);
 
       dispatch({
         type: AUTH,
@@ -20,7 +20,7 @@ export const login =
       });
 
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
-      localStorage.setItem("logged", "true");
+      localStorage.setItem('logged', 'true');
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
@@ -48,8 +48,8 @@ export const register =
 
 export const refreshToken =
   () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
-    const logged = localStorage.getItem("logged");
-    if (logged !== "true") return;
+    const logged = localStorage.getItem('logged');
+    if (logged !== 'true') return;
 
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
@@ -67,10 +67,10 @@ export const refreshToken =
 export const logout =
   () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
     try {
-      localStorage.removeItem("logged");
-      dispatch({ type: AUTH, payload: { } })
-      await getAPI("logout");
-      window.location.href = "/";
+      localStorage.removeItem('logged');
+      dispatch({ type: AUTH, payload: {} });
+      await getAPI('logout');
+      window.location.href = '/';
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
@@ -81,7 +81,7 @@ export const googleLogin =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await postAPI("google_login", { id_token });
+      const res = await postAPI('google_login', { id_token });
 
       dispatch({
         type: AUTH,
@@ -89,7 +89,7 @@ export const googleLogin =
       });
 
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
-      localStorage.setItem("logged", "true");
+      localStorage.setItem('logged', 'true');
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
@@ -101,7 +101,7 @@ export const facebookLogin =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await postAPI("facebook_login", { accessToken, userID });
+      const res = await postAPI('facebook_login', { accessToken, userID });
 
       dispatch({
         type: AUTH,
@@ -109,7 +109,7 @@ export const facebookLogin =
       });
 
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
-      localStorage.setItem("logged", "true");
+      localStorage.setItem('logged', 'true');
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
@@ -121,12 +121,12 @@ export const loginSMS =
     if (!check)
       return dispatch({
         type: ALERT,
-        payload: { errors: "phone number format is incorrect" },
+        payload: { errors: 'phone number format is incorrect' },
       });
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await postAPI("login_sms", { phone });
+      const res = await postAPI('login_sms', { phone });
 
       if (!res.data.valid) verifySMS(phone, dispatch);
     } catch (err: any) {
@@ -138,13 +138,13 @@ async function verifySMS(
   phone: string,
   dispatch: Dispatch<IAuthType | IAlertType>
 ) {
-  const code = prompt("Enter your code");
+  const code = prompt('Enter your code');
   if (!code) return;
 
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
 
-    const res = await postAPI("sms_verify", { phone, code });
+    const res = await postAPI('sms_verify', { phone, code });
 
     dispatch({ type: ALERT, payload: res.data });
 
@@ -154,7 +154,7 @@ async function verifySMS(
     });
 
     dispatch({ type: ALERT, payload: { success: res.data.msg } });
-    localStorage.setItem("logged", "true");
+    localStorage.setItem('logged', 'true');
   } catch (err: any) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     setTimeout(() => {

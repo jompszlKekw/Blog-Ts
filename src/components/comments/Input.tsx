@@ -1,33 +1,33 @@
-import React, { useState, useRef, useEffect } from "react";
-import { IComment } from "../../utils/TypeScript";
+import React, { useState, useRef, useEffect } from 'react';
+import { IComment } from '../../utils/TypeScript';
 
-import LiteQuill from "../editor/LiteQuill";
+import LiteQuill from '../editor/LiteQuill';
 
 interface IProps {
   callback: (body: string) => void;
   edit?: IComment;
-  setEdit?: (edit?: IComment) => void
+  setEdit?: (edit?: IComment) => void;
 }
 
 const Input: React.FC<IProps> = ({ callback, edit, setEdit }) => {
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState('');
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if(edit) setBody(edit.content)
-  }, [edit])
+    if (edit) setBody(edit.content);
+  }, [edit]);
 
   const handleSubmit = () => {
     const div = divRef.current;
     const text = div?.innerText as string;
     if (!text.trim()) {
-      if(setEdit) return setEdit(undefined)
+      if (setEdit) return setEdit(undefined);
       return;
-    };
+    }
 
     callback(body);
 
-    setBody("");
+    setBody('');
   };
 
   return (
@@ -39,14 +39,14 @@ const Input: React.FC<IProps> = ({ callback, edit, setEdit }) => {
         dangerouslySetInnerHTML={{
           __html: body,
         }}
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
       />
 
       <button
         className="btn btn-dark ms-auto d-block px-4 mt-2"
         onClick={handleSubmit}
       >
-        { edit ? 'Update' : 'Send' }
+        {edit ? 'Update' : 'Send'}
       </button>
     </div>
   );

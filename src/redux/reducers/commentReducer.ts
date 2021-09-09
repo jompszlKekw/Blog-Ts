@@ -6,7 +6,7 @@ import {
   REPLY_COMMENTS,
   UPDATE_COMMENTS,
   UPDATE_REPLY,
-} from "../types/commentType";
+} from '../types/commentType';
 
 const initialState = { data: [], total: 1 };
 
@@ -31,38 +31,34 @@ const commentReducer = (
           item._id === action.payload.comment_root
             ? {
                 ...item,
-                replyCM: [action.payload, ...item.replyCM as []],
+                replyCM: [action.payload, ...(item.replyCM as [])],
               }
             : item
         ),
       };
 
     case UPDATE_COMMENTS:
-      return{
+      return {
         ...state,
-        data: state.data.map(item => (
-          item._id === action.payload._id
-          ? action.payload
-          : item
-        ))
-      }
+        data: state.data.map((item) =>
+          item._id === action.payload._id ? action.payload : item
+        ),
+      };
 
     case UPDATE_REPLY:
-      return{
+      return {
         ...state,
-        data: state.data.map(item => (
+        data: state.data.map((item) =>
           item._id === action.payload.comment_root
-          ? {
-            ...item,
-            replyCM: item.replyCM?.map(rp => (
-              rp._id === action.payload._id
-              ? action.payload
-              : rp
-            ))
-          }
-          : item
-        ))
-      }
+            ? {
+                ...item,
+                replyCM: item.replyCM?.map((rp) =>
+                  rp._id === action.payload._id ? action.payload : rp
+                ),
+              }
+            : item
+        ),
+      };
 
     default:
       return state;

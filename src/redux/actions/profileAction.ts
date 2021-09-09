@@ -1,19 +1,19 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 
-import { getAPI, patchAPI } from "../../utils/FetchData";
-import { checkImage, imageUpload } from "../../utils/ImageUpload";
-import { checkPassword } from "../../utils/Valid";
+import { getAPI, patchAPI } from '../../utils/FetchData';
+import { checkImage, imageUpload } from '../../utils/ImageUpload';
+import { checkPassword } from '../../utils/Valid';
 
-import { ALERT, IAlertType } from "../types/alertType";
-import { GET_OTHER_INFO, IGetOtherInfoType } from "../types/profileType";
-import { AUTH, IAuth, IAuthType } from "./../types/authType";
+import { ALERT, IAlertType } from '../types/alertType';
+import { GET_OTHER_INFO, IGetOtherInfoType } from '../types/profileType';
+import { AUTH, IAuth, IAuthType } from './../types/authType';
 
 export const updateUser =
   (avatar: File, name: string, auth: IAuth) =>
   async (dispatch: Dispatch<IAlertType | IAuthType>) => {
     if (!auth.access_token || !auth.user) return;
 
-    let url = "";
+    let url = '';
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
@@ -38,7 +38,7 @@ export const updateUser =
       });
 
       const res = await patchAPI(
-        "user",
+        'user',
         {
           avatar: url ? url : auth.user.avatar,
           name: name ? name : auth.user.name,
@@ -61,7 +61,7 @@ export const resetPassword =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await patchAPI("reset_password", { password }, token);
+      const res = await patchAPI('reset_password', { password }, token);
 
       dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (err: any) {

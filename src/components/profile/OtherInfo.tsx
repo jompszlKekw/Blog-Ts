@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getOtherInfo } from "../../redux/actions/profileAction";
-import { IUser, RootStore } from "../../utils/TypeScript";
+import { getOtherInfo } from '../../redux/actions/profileAction';
+import { IUser, RootStore } from '../../utils/TypeScript';
 
-import NotFound from "../global/NotFound";
+import NotFound from '../global/NotFound';
 interface IProps {
   id: string;
 }
@@ -44,8 +44,8 @@ const OtherInfo: React.FC<IProps> = ({ id }) => {
       <span className="text-info">{other.account}</span>
 
       <div>
-        Join Date:{" "}
-        <span style={{ color: "#ffc107" }}>
+        Join Date:{' '}
+        <span style={{ color: '#ffc107' }}>
           {new Date(other.createdAt).toLocaleDateString()}
         </span>
       </div>

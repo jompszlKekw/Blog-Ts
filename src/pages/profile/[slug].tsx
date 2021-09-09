@@ -1,12 +1,12 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { IParams, RootStore } from "../../utils/TypeScript";
+import { IParams, RootStore } from '../../utils/TypeScript';
 
-import UserInfo from "../../components/profile/UserInfo";
-import OtherInfo from "../../components/profile/OtherInfo";
-import UserBlogs from "../../components/profile/UserBlogs";
+import UserInfo from '../../components/profile/UserInfo';
+import OtherInfo from '../../components/profile/OtherInfo';
+import UserBlogs from '../../components/profile/UserBlogs';
 
 function Profile() {
   const { slug }: IParams = useParams();

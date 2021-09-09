@@ -1,5 +1,5 @@
-import { useDispatch } from "react-redux";
-import { ALERT } from "../../redux/types/alertType";
+import { useDispatch } from 'react-redux';
+import { ALERT } from '../../redux/types/alertType';
 
 interface IProps {
   title: string;
@@ -17,7 +17,7 @@ function Toast({ title, body, bgColor }: IProps) {
   return (
     <div
       className={`toast show position-fixed text-light ${bgColor}`}
-      style={{ top: "5px", right: "5px", zIndex: 50, minWidth: "200px" }}
+      style={{ top: '5px', right: '5px', zIndex: 50, minWidth: '200px' }}
     >
       <div className={`toast-header text-light ${bgColor}`}>
         <strong className="me-auto">{title}</strong>
@@ -30,7 +30,7 @@ function Toast({ title, body, bgColor }: IProps) {
         />
       </div>
       <div className="toast-body">
-        {typeof body === "string" ? (
+        {typeof body === 'string' ? (
           body
         ) : (
           <ul>

@@ -4,8 +4,8 @@ import {
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
   ICategoryType,
-} from "../types/categoryType";
-import { ICategory } from "../../utils/TypeScript";
+} from '../types/categoryType';
+import { ICategory } from '../../utils/TypeScript';
 
 const categoryReducer = (
   state: ICategory[] = [],

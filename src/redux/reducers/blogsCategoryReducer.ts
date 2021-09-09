@@ -2,7 +2,7 @@ import {
   GET_BLOGS_CATEGORY_ID,
   IBlogsCategory,
   IGetBlogsCategoryType,
-} from "../types/blogType";
+} from '../types/blogType';
 
 const blogsCategoryReducer = (
   state: IBlogsCategory[] = [],

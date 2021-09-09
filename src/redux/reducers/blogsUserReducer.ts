@@ -2,7 +2,7 @@ import {
   IBlogsUser,
   GET_BLOGS_USER_ID,
   IGetBlogsUserType,
-} from "../types/blogType";
+} from '../types/blogType';
 
 const blogsUserReducer = (
   state: IBlogsUser[] = [],

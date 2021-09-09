@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { resetPassword, updateUser } from "../../redux/actions/profileAction";
+import { resetPassword, updateUser } from '../../redux/actions/profileAction';
 
 import {
   RootStore,
   InputChange,
   IUserProfile,
   FormSubmit,
-} from "../../utils/TypeScript";
+} from '../../utils/TypeScript';
 
-import NotFound from "../global/NotFound";
+import NotFound from '../global/NotFound';
 
 function UserInfo() {
   const initState = {
-    name: "",
-    account: "",
-    avatar: "",
-    password: "",
-    cf_password: "",
+    name: '',
+    account: '',
+    avatar: '',
+    password: '',
+    cf_password: '',
   };
 
   const { auth } = useSelector((state: RootStore) => state);
@@ -102,7 +102,7 @@ function UserInfo() {
         />
       </div>
 
-      {auth.user.type !== "resgister" && (
+      {auth.user.type !== 'resgister' && (
         <small className="text-danger">
           Quick login account with {auth.user.type} can't use this function
         </small>
@@ -113,17 +113,17 @@ function UserInfo() {
 
         <div className="pass">
           <input
-            type={typePass ? "text" : "password"}
+            type={typePass ? 'text' : 'password'}
             className="form-control"
             id="password"
             name="password"
             value={password}
             onChange={handleChangeInput}
-            disabled={auth.user.type !== "register"}
+            disabled={auth.user.type !== 'register'}
           />
 
           <small onClick={() => setTypePass(!typePass)}>
-            {typePass ? "Hide" : "Show"}
+            {typePass ? 'Hide' : 'Show'}
           </small>
         </div>
       </div>
@@ -133,17 +133,17 @@ function UserInfo() {
 
         <div className="pass">
           <input
-            type={typeCfPass ? "text" : "password"}
+            type={typeCfPass ? 'text' : 'password'}
             className="form-control"
             id="cf_password"
             name="cf_password"
             value={cf_password}
             onChange={handleChangeInput}
-            disabled={auth.user.type !== "register"}
+            disabled={auth.user.type !== 'register'}
           />
 
           <small onClick={() => setTypeCfPass(!typeCfPass)}>
-            {typeCfPass ? "Hide" : "Show"}
+            {typeCfPass ? 'Hide' : 'Show'}
           </small>
         </div>
       </div>

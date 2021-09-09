@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { getAPI } from "../../utils/FetchData";
+import { getAPI } from '../../utils/FetchData';
 
-import { IBlog, IParams } from "../../utils/TypeScript";
+import { IBlog, IParams } from '../../utils/TypeScript';
 
-import Loading from "../../components/global/Loading";
-import { showErrMsg } from "../../components/alert/Alert";
-import DisplayBlog from "../../components/blog/DisplayBlog";
+import Loading from '../../components/global/Loading';
+import { showErrMsg } from '../../components/alert/Alert';
+import DisplayBlog from '../../components/blog/DisplayBlog';
 
 function DetailBlog() {
   const id = useParams<IParams>().slug;
 
   const [blog, setBlog] = useState<IBlog>();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!id) return;

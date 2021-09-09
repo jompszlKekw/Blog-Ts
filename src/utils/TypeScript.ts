@@ -1,5 +1,5 @@
-import { ChangeEvent, FormEvent } from "react";
-import rootReducer from "../redux/reducers/index";
+import { ChangeEvent, FormEvent } from 'react';
+import rootReducer from '../redux/reducers/index';
 
 export type InputChange = ChangeEvent<
   HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement

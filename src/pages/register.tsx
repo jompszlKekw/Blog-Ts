@@ -1,7 +1,7 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
-import RegisterForm from "../components/auth/RegisterForm";
+import RegisterForm from '../components/auth/RegisterForm';
 
 function Register() {
   const history = useHistory();
@@ -17,7 +17,7 @@ function Register() {
           {`Already have an account? `}
           <Link
             to={`/login${history.location.search}`}
-            style={{ color: "crimson" }}
+            style={{ color: 'crimson' }}
           >
             Login now
           </Link>

@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { IUser } from "../../utils/TypeScript";
+import { IUser } from '../../utils/TypeScript';
 
 interface IProps {
   user: IUser;
@@ -15,16 +15,16 @@ const AvatarReply: React.FC<IProps> = ({ user, reply_user }) => {
 
       <div className="ms-1">
         <small>
-          <Link to={`/profile/${user._id}`} style={{ textDecoration: "none" }}>
+          <Link to={`/profile/${user._id}`} style={{ textDecoration: 'none' }}>
             {user.name}
           </Link>
         </small>
 
         <small className="reply-text">
-          Reply to{" "}
+          Reply to{' '}
           <Link
             to={`/profile/${reply_user?._id}`}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: 'none' }}
           >
             {reply_user?.name}
           </Link>

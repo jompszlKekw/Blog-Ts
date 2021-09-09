@@ -1,35 +1,35 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { RootStore, IBlog } from "../utils/TypeScript";
-import { validCreateBlog } from "../utils/Valid";
+import { RootStore, IBlog } from '../utils/TypeScript';
+import { validCreateBlog } from '../utils/Valid';
 
-import NotFound from "../components/global/NotFound";
-import CreateForm from "../components/cards/CreateForm";
-import CardHoriz from "../components/cards/CardHoriz";
+import NotFound from '../components/global/NotFound';
+import CreateForm from '../components/cards/CreateForm';
+import CardHoriz from '../components/cards/CardHoriz';
 
-import ReactQuill from "../components/editor/ReactQuill";
+import ReactQuill from '../components/editor/ReactQuill';
 
-import { ALERT } from "../redux/types/alertType";
+import { ALERT } from '../redux/types/alertType';
 
-import { createBlog } from "../redux/actions/blogAction";
+import { createBlog } from '../redux/actions/blogAction';
 
 const CreateBlog = () => {
   const initState = {
-    user: "",
-    title: "",
-    content: "",
-    description: "",
-    thumbnail: "",
-    category: "",
+    user: '',
+    title: '',
+    content: '',
+    description: '',
+    thumbnail: '',
+    category: '',
     createdAt: new Date().toISOString(),
   };
 
   const [blog, setBlog] = useState<IBlog>(initState);
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState('');
 
   const divRef = useRef<HTMLDivElement>(null);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
   const { auth } = useSelector((state: RootStore) => state);
   const dispatch = useDispatch();
@@ -77,7 +77,7 @@ const CreateBlog = () => {
         dangerouslySetInnerHTML={{
           __html: body,
         }}
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
       />
 
       <small>{text.length}</small>

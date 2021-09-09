@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { IComment } from "../../utils/TypeScript";
+import { IComment } from '../../utils/TypeScript';
 
-import AvatarComment from "./AvatarComment";
-import AvatarReply from "./AvatarReply";
-import CommentList from "./CommentList";
+import AvatarComment from './AvatarComment';
+import AvatarReply from './AvatarReply';
+import CommentList from './CommentList';
 
 interface IProps {
   comment: IComment;
@@ -12,7 +12,7 @@ interface IProps {
 
 const Comments: React.FC<IProps> = ({ comment }) => {
   const [showReply, setShowReply] = useState<IComment[]>([]);
-  const [next, setNext] = useState(2)
+  const [next, setNext] = useState(2);
 
   useEffect(() => {
     if (!comment.replyCM) return;
@@ -24,7 +24,7 @@ const Comments: React.FC<IProps> = ({ comment }) => {
       className="my-3 d-flex"
       style={{
         opacity: comment._id ? 1 : 0.5,
-        pointerEvents: comment._id ? "initial" : "none",
+        pointerEvents: comment._id ? 'initial' : 'none',
       }}
     >
       <AvatarComment user={comment.user} />
@@ -38,7 +38,7 @@ const Comments: React.FC<IProps> = ({ comment }) => {
             key={index}
             style={{
               opacity: comment._id ? 1 : 0.5,
-              pointerEvents: comment._id ? "initial" : "none",
+              pointerEvents: comment._id ? 'initial' : 'none',
             }}
           >
             <AvatarReply user={comment.user} reply_user={comment.reply_user} />
@@ -50,22 +50,22 @@ const Comments: React.FC<IProps> = ({ comment }) => {
           </div>
         ))}
 
-      <div style={{ cursor: 'pointer' }} >
-        {
-          showReply.length -next > 0
-          ? <small style={{ color: 'crimson' }} 
-            onClick={() => setNext(next + 5)}
+        <div style={{ cursor: 'pointer' }}>
+          {showReply.length - next > 0 ? (
+            <small
+              style={{ color: 'crimson' }}
+              onClick={() => setNext(next + 5)}
             >
               See more comments...
             </small>
-          : showReply.length > 1 && <small style={{ color: 'teal' }} 
-            onClick={() => setNext(2)}
-            >
-              Hide comments...
-            </small>
-        }
-      </div>
-
+          ) : (
+            showReply.length > 1 && (
+              <small style={{ color: 'teal' }} onClick={() => setNext(2)}>
+                Hide comments...
+              </small>
+            )
+          )}
+        </div>
       </CommentList>
     </div>
   );

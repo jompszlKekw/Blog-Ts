@@ -2,7 +2,7 @@ import {
   GET_HOME_BLOGS,
   IGetHomeBlogsType,
   IHomeBlogs,
-} from "../types/blogType";
+} from '../types/blogType';
 
 const homeBlogsReducer = (
   state: IHomeBlogs[] = [],

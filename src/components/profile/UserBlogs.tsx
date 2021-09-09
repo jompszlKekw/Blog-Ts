@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 
-import { IParams, RootStore, IBlog } from "../../utils/TypeScript";
+import { IParams, RootStore, IBlog } from '../../utils/TypeScript';
 
-import { getBlogsByUserId } from "../../redux/actions/blogAction";
+import { getBlogsByUserId } from '../../redux/actions/blogAction';
 
-import CardHoriz from "../cards/CardHoriz";
-import Loading from "../global/Loading";
-import Pagination from "../global/Pagination";
+import CardHoriz from '../cards/CardHoriz';
+import Loading from '../global/Loading';
+import Pagination from '../global/Pagination';
 
 const UserBlogs = () => {
   const { blogsUser } = useSelector((state: RootStore) => state);

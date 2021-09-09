@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { InputChange, FormSubmit } from "../../utils/TypeScript";
-import { register } from "../../redux/actions/authAction";
+import { InputChange, FormSubmit } from '../../utils/TypeScript';
+import { register } from '../../redux/actions/authAction';
 
 const RegisterForm = () => {
-  const initialState = { name: "", account: "", password: "", cf_password: "" };
+  const initialState = { name: '', account: '', password: '', cf_password: '' };
   const [userRegister, setUserRegister] = useState(initialState);
   const { name, account, password, cf_password } = userRegister;
 
@@ -65,7 +65,7 @@ const RegisterForm = () => {
 
         <div className="pass">
           <input
-            type={typePass ? "text" : "password"}
+            type={typePass ? 'text' : 'password'}
             className="form-control"
             id="password"
             name="password"
@@ -75,7 +75,7 @@ const RegisterForm = () => {
           />
 
           <small onClick={() => setTypePass(!typePass)}>
-            {typePass ? "Hide" : "Show"}
+            {typePass ? 'Hide' : 'Show'}
           </small>
         </div>
       </div>
@@ -87,7 +87,7 @@ const RegisterForm = () => {
 
         <div className="pass">
           <input
-            type={typeCfPass ? "text" : "password"}
+            type={typeCfPass ? 'text' : 'password'}
             className="form-control"
             id="cf_password"
             name="cf_password"
@@ -97,7 +97,7 @@ const RegisterForm = () => {
           />
 
           <small onClick={() => setTypeCfPass(!typeCfPass)}>
-            {typeCfPass ? "Hide" : "Show"}
+            {typeCfPass ? 'Hide' : 'Show'}
           </small>
         </div>
       </div>

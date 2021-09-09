@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
-import { IBlog, RootStore, IUser, IComment } from "../../utils/TypeScript";
+import { IBlog, RootStore, IUser, IComment } from '../../utils/TypeScript';
 
-import Input from "../comments/Input";
-import Comments from "../comments/Comments";
+import Input from '../comments/Input';
+import Comments from '../comments/Comments';
 
-import Loading from '../global/Loading'
-import Pagination from '../global/Pagination'
+import Loading from '../global/Loading';
+import Pagination from '../global/Pagination';
 
-import { createComment, getComments } from "../../redux/actions/commentAction";
+import { createComment, getComments } from '../../redux/actions/commentAction';
 
 interface IProps {
   blog: IBlog;
@@ -23,7 +23,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   const [showComments, setShowComments] = useState<IComment[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const history = useHistory()
+  const history = useHistory();
 
   const handleComment = (body: string) => {
     if (!auth.user || !auth.access_token) return;
@@ -55,27 +55,27 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
 
   useEffect(() => {
     if (!blog._id) return;
-    const num = history.location.search.slice(6) || 1
+    const num = history.location.search.slice(6) || 1;
     fetchComments(blog._id, num);
   }, [blog._id, fetchComments, history]);
 
   const handlePagination = (num: number) => {
     if (!blog._id) return;
     fetchComments(blog._id, num);
-  }
+  };
 
   return (
     <div>
       <h2
         className="text-center my-3 text-capitalize fs-1"
-        style={{ color: "#ff7a00" }}
+        style={{ color: '#ff7a00' }}
       >
         {blog.title}
       </h2>
 
-      <div className="text-end fst-italic" style={{ color: "teal" }}>
+      <div className="text-end fst-italic" style={{ color: 'teal' }}>
         <small>
-          {typeof blog.user !== "string" && `By: ${blog.user.name}`}
+          {typeof blog.user !== 'string' && `By: ${blog.user.name}`}
         </small>
 
         <small className="ms-2">
@@ -90,7 +90,7 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
       />
 
       <hr className="my-1" />
-      <h3 style={{ color: "#ff7a00" }}>✩ Comments ✩</h3>
+      <h3 style={{ color: '#ff7a00' }}>✩ Comments ✩</h3>
 
       {auth.user ? (
         <Input callback={handleComment} />
@@ -100,23 +100,19 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
         </h5>
       )}
 
-      {
-        loading
-        ? <Loading />
-        : showComments?.map((comment, index) => (
-            <Comments key={index} comment={comment} />
-          ))
-      }
+      {loading ? (
+        <Loading />
+      ) : (
+        showComments?.map((comment, index) => (
+          <Comments key={index} comment={comment} />
+        ))
+      )}
 
-      {
-        comment.total > 1 &&
-        <Pagination total={comment.total}
-        callback={handlePagination}
-        />
-      }
-
+      {comment.total > 1 && (
+        <Pagination total={comment.total} callback={handlePagination} />
+      )}
     </div>
   );
 };
 
-export default DisplayBlog
+export default DisplayBlog;

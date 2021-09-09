@@ -1,15 +1,15 @@
-import { Dispatch } from "redux";
-import { ALERT, IAlertType } from "../types/alertType";
+import { Dispatch } from 'redux';
+import { ALERT, IAlertType } from '../types/alertType';
 import {
   CREATE_CATEGORY,
   ICategoryType,
   GET_CATEGORY,
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
-} from "../types/categoryType";
+} from '../types/categoryType';
 
-import { postAPI, getAPI, patchAPI, deleteAPI } from "../../utils/FetchData";
-import { ICategory } from "../../utils/TypeScript";
+import { postAPI, getAPI, patchAPI, deleteAPI } from '../../utils/FetchData';
+import { ICategory } from '../../utils/TypeScript';
 
 export const createCategory =
   (name: string, token: string) =>
@@ -17,7 +17,7 @@ export const createCategory =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await postAPI("category", { name }, token);
+      const res = await postAPI('category', { name }, token);
 
       dispatch({
         type: CREATE_CATEGORY,
@@ -35,7 +35,7 @@ export const getCategories =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await getAPI("category");
+      const res = await getAPI('category');
 
       dispatch({
         type: GET_CATEGORY,

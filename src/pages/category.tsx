@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import NotFound from "../components/global/NotFound";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import NotFound from '../components/global/NotFound';
 import {
   createCategory,
   deleteCategory,
   updateCategory,
-} from "../redux/actions/categoryAction";
+} from '../redux/actions/categoryAction';
 
-import { FormSubmit, RootStore, ICategory } from "../utils/TypeScript";
+import { FormSubmit, RootStore, ICategory } from '../utils/TypeScript';
 
 function Category() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [edit, setEdit] = useState<ICategory | null>(null);
 
   const { auth, categories } = useSelector((state: RootStore) => state);
@@ -32,7 +32,7 @@ function Category() {
       dispatch(createCategory(name, auth.access_token));
     }
 
-    setName("");
+    setName('');
     setEdit(null);
   };
 
@@ -41,7 +41,7 @@ function Category() {
     dispatch(deleteCategory(id, auth.access_token));
   };
 
-  if (auth.user?.role !== "admin") return <NotFound />;
+  if (auth.user?.role !== 'admin') return <NotFound />;
   return (
     <div className="category">
       <form onSubmit={handleSubmit}>
@@ -51,7 +51,7 @@ function Category() {
           {edit && (
             <i
               className="fas fa-times me-2 text-danger"
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
               onClick={() => setEdit(null)}
             />
           )}
@@ -63,7 +63,7 @@ function Category() {
             onChange={(e) => setName(e.target.value)}
           />
 
-          <button type="submit">{edit ? "Update" : "Create"}</button>
+          <button type="submit">{edit ? 'Update' : 'Create'}</button>
         </div>
       </form>
 

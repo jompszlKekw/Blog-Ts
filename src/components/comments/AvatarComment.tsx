@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { IUser } from "../../utils/TypeScript";
+import { IUser } from '../../utils/TypeScript';
 
 interface IProps {
   user: IUser;

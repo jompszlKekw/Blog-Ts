@@ -1,6 +1,6 @@
-import React from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import React from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 interface IProps {
   body: string;
@@ -24,11 +24,11 @@ const LiteQuill: React.FC<IProps> = ({ body, setBody }) => {
 };
 
 let container = [
-  [{ 'font': [] }],
-  ["bold", "italic", "underline", "strike"],
-  ["blockquote", "code-block"],
+  [{ font: [] }],
+  ['bold', 'italic', 'underline', 'strike'],
+  ['blockquote', 'code-block'],
   [{ color: [] }, { background: [] }],
-  [{ script: "sub" }, { script: "super" }],
+  [{ script: 'sub' }, { script: 'super' }],
 ];
 
 export default LiteQuill;
