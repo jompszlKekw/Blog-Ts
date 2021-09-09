@@ -50,5 +50,6 @@ routes.post('/api/comment', auth, commentController.createComment);
 routes.get('/api/comments/blog/:id', commentController.getCommets);
 routes.post('/api/reply_comment', auth, commentController.replyComment);
 routes.patch('/api/comment/:id', auth, commentController.updateComment);
+routes.delete('/api/comment/:id', auth, commentController.deleteComment);
 
 export { routes };

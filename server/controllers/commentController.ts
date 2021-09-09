@@ -174,14 +174,47 @@ class CommentController {
     try {
       const { content } = req.body;
 
-      const comment = await Comment.findOneAndUpdate({
-        _id: req.params.id, user: req.user.id
-      }, { content })
+      const comment = await Comment.findOneAndUpdate(
+        {
+          _id: req.params.id,
+          user: req.user.id,
+        },
+        { content }
+      );
 
-      if(!comment)
+      if (!comment)
         return res.status(400).json({ msg: 'Comment does not exits.' });
 
       return res.json({ msg: 'Update Success' });
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+  async deleteComment(req: IReqAuth, res: Response) {
+    if (!req.user)
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
+
+    try {
+      const comment = await Comment.findOneAndDelete({
+        _id: req.params.id,
+        $or: [{ user: req.user._id }, { blog_user_id: req.user._id }],
+      });
+
+      if (!comment)
+        return res.status(400).json({ msg: 'Comment does not exits.' });
+
+      if (comment.comment_root) {
+        await Comment.findOneAndUpdate(
+          { _id: comment.comment_root },
+          {
+            $pull: { replyCM: comment._id },
+          }
+        );
+      } else {
+        await Comment.deleteMany({ _id: { $in: comment.replyCM } });
+      }
+
+      return res.json({ msg: 'Delete Success' });
     } catch (err) {
       return res.status(500).json(err);
     }
