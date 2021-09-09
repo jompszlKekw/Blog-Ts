@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
-import mongoose from "mongoose";
+import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
-import { Blog } from "../models/blogModel";
+import { Blog } from '../models/blogModel';
 
-import { IReqAuth } from "../config/interfaces";
+import { IReqAuth } from '../config/interfaces';
 
 function Pagination(req: IReqAuth) {
   let page = Number(req.query.page) * 1 || 1;
@@ -15,7 +15,7 @@ function Pagination(req: IReqAuth) {
 class BlogController {
   async createBlog(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication." });
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
 
     try {
       const { title, content, description, thumbnail, category } = req.body;
@@ -41,36 +41,36 @@ class BlogController {
         // USER
         {
           $lookup: {
-            from: "users",
-            let: { user_id: "$user" },
+            from: 'users',
+            let: { user_id: '$user' },
             pipeline: [
-              { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+              { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
               { $project: { password: 0 } },
             ],
-            as: "user",
+            as: 'user',
           },
         },
         // array -> object
-        { $unwind: "$user" },
+        { $unwind: '$user' },
         // Category
         {
           $lookup: {
-            from: "categories",
-            localField: "category",
-            foreignField: "_id",
-            as: "category",
+            from: 'categories',
+            localField: 'category',
+            foreignField: '_id',
+            as: 'category',
           },
         },
         // array -> object
-        { $unwind: "$category" },
+        { $unwind: '$category' },
         // Sorting
         { $sort: { createdAt: -1 } },
         // Group by category
         {
           $group: {
-            _id: "$category._id",
-            name: { $first: "$category.name" },
-            blogs: { $push: "$$ROOT" },
+            _id: '$category._id',
+            name: { $first: '$category.name' },
+            blogs: { $push: '$$ROOT' },
             count: { $sum: 1 },
           },
         },
@@ -78,7 +78,7 @@ class BlogController {
         {
           $project: {
             blogs: {
-              $slice: ["$blogs", 0, 4],
+              $slice: ['$blogs', 0, 4],
             },
             count: 1,
             name: 1,
@@ -106,17 +106,17 @@ class BlogController {
               // User
               {
                 $lookup: {
-                  from: "users",
-                  let: { user_id: "$user" },
+                  from: 'users',
+                  let: { user_id: '$user' },
                   pipeline: [
-                    { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                    { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
                     { $project: { password: 0 } },
                   ],
-                  as: "user",
+                  as: 'user',
                 },
               },
               // array -> object
-              { $unwind: "$user" },
+              { $unwind: '$user' },
               // Sorting
               { $sort: { createdAt: -1 } },
               { $skip: skip },
@@ -128,13 +128,13 @@ class BlogController {
                   category: mongoose.Types.ObjectId(req.params.id),
                 },
               },
-              { $count: "count" },
+              { $count: 'count' },
             ],
           },
         },
         {
           $project: {
-            count: { $arrayElemAt: ["$totalCount.count", 0] },
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
             totalData: 1,
           },
         },
@@ -173,17 +173,17 @@ class BlogController {
               // User
               {
                 $lookup: {
-                  from: "users",
-                  let: { user_id: "$user" },
+                  from: 'users',
+                  let: { user_id: '$user' },
                   pipeline: [
-                    { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+                    { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
                     { $project: { password: 0 } },
                   ],
-                  as: "user",
+                  as: 'user',
                 },
               },
               // array -> object
-              { $unwind: "$user" },
+              { $unwind: '$user' },
               // Sorting
               { $sort: { createdAt: -1 } },
               { $skip: skip },
@@ -195,13 +195,13 @@ class BlogController {
                   user: mongoose.Types.ObjectId(req.params.id),
                 },
               },
-              { $count: "count" },
+              { $count: 'count' },
             ],
           },
         },
         {
           $project: {
-            count: { $arrayElemAt: ["$totalCount.count", 0] },
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
             totalData: 1,
           },
         },
@@ -227,11 +227,11 @@ class BlogController {
   async getBlog(req: Request, res: Response) {
     try {
       const blog = await Blog.findOne({ _id: req.params.id }).populate(
-        "user",
-        "-password"
+        'user',
+        '-password'
       );
 
-      if (!blog) return res.status(500).json({ msg: "Blog does not exist." });
+      if (!blog) return res.status(500).json({ msg: 'Blog does not exist.' });
 
       return res.json(blog);
     } catch (err) {

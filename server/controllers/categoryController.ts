@@ -1,14 +1,14 @@
-import { Request, Response } from "express";
-import { Category } from "../models/categoryModel";
-import { IReqAuth } from "../config/interfaces";
+import { Request, Response } from 'express';
+import { Category } from '../models/categoryModel';
+import { IReqAuth } from '../config/interfaces';
 
 class CategoryController {
   async createCategory(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication." });
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
 
-    if (req.user.role !== "admin")
-      return res.status(400).json({ msg: "Invalid Authentication." });
+    if (req.user.role !== 'admin')
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
     try {
       const name = req.body.name.toLowerCase();
 
@@ -20,7 +20,7 @@ class CategoryController {
       let errMsg;
 
       if (err.code === 11000) {
-        errMsg = Object.values(err.keyValue)[0] + " alredy exists";
+        errMsg = Object.values(err.keyValue)[0] + ' alredy exists';
       } else {
         let name = Object.keys(err.errors)[0];
         errMsg = err.errors[`${name}`].message;
@@ -30,7 +30,7 @@ class CategoryController {
   }
   async getCategory(req: Request, res: Response) {
     try {
-      const categories = await Category.find().sort("-createdAt");
+      const categories = await Category.find().sort('-createdAt');
 
       res.json({ categories });
     } catch (err) {
@@ -39,10 +39,10 @@ class CategoryController {
   }
   async updateCategory(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication." });
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
 
-    if (req.user.role !== "admin")
-      return res.status(400).json({ msg: "Invalid Authentication." });
+    if (req.user.role !== 'admin')
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
     try {
       const category = await Category.findOneAndUpdate(
         {
@@ -51,21 +51,21 @@ class CategoryController {
         { name: req.body.name }
       );
 
-      res.json({ msg: "Update Success" });
+      res.json({ msg: 'Update Success' });
     } catch (err) {
       return res.status(500).json(err);
     }
   }
   async deleteCategory(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication." });
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
 
-    if (req.user.role !== "admin")
-      return res.status(400).json({ msg: "Invalid Authentication." });
+    if (req.user.role !== 'admin')
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
     try {
       const category = await Category.findByIdAndDelete(req.params.id);
 
-      res.json({ msg: "Delete Success" });
+      res.json({ msg: 'Delete Success' });
     } catch (err) {
       return res.status(500).json(err);
     }

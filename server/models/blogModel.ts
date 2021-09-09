@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 export interface IBlog {
   user: string;
@@ -11,7 +11,7 @@ export interface IBlog {
 
 const blogSchema: Schema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     title: {
       type: String,
       required: true,
@@ -28,10 +28,10 @@ const blogSchema: Schema = new Schema(
       maxLength: 200,
     },
     thumbnail: { type: String, required: true },
-    category: { type: Schema.Types.ObjectId, ref: "category" },
+    category: { type: Schema.Types.ObjectId, ref: 'category' },
   },
   { timestamps: true }
 );
 
-const Blog = model<IBlog>("Blog", blogSchema);
+const Blog = model<IBlog>('Blog', blogSchema);
 export { Blog };

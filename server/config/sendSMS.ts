@@ -1,4 +1,4 @@
-import { Twilio } from "twilio";
+import { Twilio } from 'twilio';
 
 const accountSid = `${process.env.TWILIO_ACCOUNT_SID}`;
 const authToken = `${process.env.TWILIO_AUTH_TOKEN}`;
@@ -21,9 +21,9 @@ export function sendSMS(to: string, body: string, text: string) {
 
 client.messages
   .create({
-    body: "This is the ship that made the Kessel Run in fourteen parsecs?",
-    from: "+15017122661",
-    to: "+15558675310",
+    body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+    from: '+15017122661',
+    to: '+15558675310',
   })
   .then((message) => console.log(message.sid));
 

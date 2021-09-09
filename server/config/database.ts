@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const URI = process.env.MONGODB_URL;
 const DBNAME = process.env.DBNAME;
@@ -13,6 +13,6 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   (err) => {
-    console.log("MongoDb Connection");
+    console.log('MongoDb Connection');
   }
 );

@@ -1,12 +1,12 @@
-import { IReqAuth } from "./../config/interfaces";
-import { Request, Response } from "express";
-import { User } from "../models/userModel";
-import { hash } from "bcrypt";
+import { IReqAuth } from './../config/interfaces';
+import { Request, Response } from 'express';
+import { User } from '../models/userModel';
+import { hash } from 'bcrypt';
 
 class UserController {
   async updateUser(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication" });
+      return res.status(400).json({ msg: 'Invalid Authentication' });
 
     try {
       const { avatar, name } = req.body;
@@ -19,16 +19,16 @@ class UserController {
         }
       );
 
-      res.json({ msg: "Update Success" });
+      res.json({ msg: 'Update Success' });
     } catch (err) {
       return res.status(500).json(err);
     }
   }
   async resetPassword(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication" });
+      return res.status(400).json({ msg: 'Invalid Authentication' });
 
-    if (req.user.type !== "register")
+    if (req.user.type !== 'register')
       return res.status(400).json({
         msg: `Quick login account with ${req.user.type} can't use this function`,
       });
@@ -44,14 +44,14 @@ class UserController {
         }
       );
 
-      res.json({ msg: "Reset password Success" });
+      res.json({ msg: 'Reset password Success' });
     } catch (err) {
       return res.status(500).json(err);
     }
   }
   async getUser(req: Request, res: Response) {
     try {
-      const user = await User.findById(req.params.id).select("-password");
+      const user = await User.findById(req.params.id).select('-password');
       res.json(user);
     } catch (err) {
       return res.status(500).json(err);

@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import mongoose from "mongoose";
+import { Request, Response } from 'express';
+import mongoose from 'mongoose';
 
-import { Comment } from "../models/commentModel";
-import { IReqAuth } from "../config/interfaces";
+import { Comment } from '../models/commentModel';
+import { IReqAuth } from '../config/interfaces';
 
 function Pagination(req: IReqAuth) {
   let page = Number(req.query.page) * 1 || 1;
@@ -15,7 +15,7 @@ function Pagination(req: IReqAuth) {
 class CommentController {
   async createComment(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication." });
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
 
     try {
       const { content, blog_id, blog_user_id } = req.body;
@@ -51,48 +51,48 @@ class CommentController {
               },
               {
                 $lookup: {
-                  "from": "users",
-                  "let": { user_id: "$user" },
-                  "pipeline": [
-                    { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-                    { $project: { name: 1, avatar: 1 } }
+                  from: 'users',
+                  let: { user_id: '$user' },
+                  pipeline: [
+                    { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
+                    { $project: { name: 1, avatar: 1 } },
                   ],
-                  "as": "user",
+                  as: 'user',
                 },
               },
-              { $unwind: "$user" },
+              { $unwind: '$user' },
               {
                 $lookup: {
-                  "from": "comments",
-                  "let": { cm_id: "$replyCM" },
-                  "pipeline": [
-                    { $match: { $expr: { $in: ["$_id", "$$cm_id"] } } },
+                  from: 'comments',
+                  let: { cm_id: '$replyCM' },
+                  pipeline: [
+                    { $match: { $expr: { $in: ['$_id', '$$cm_id'] } } },
                     {
                       $lookup: {
-                        "from": "users",
-                        "let": { user_id: "$user" },
-                        "pipeline": [
-                          { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-                          { $project: { name: 1, avatar: 1 } }
+                        from: 'users',
+                        let: { user_id: '$user' },
+                        pipeline: [
+                          { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
+                          { $project: { name: 1, avatar: 1 } },
                         ],
-                        "as": "user",
+                        as: 'user',
                       },
                     },
-                    { $unwind: "$user" },
+                    { $unwind: '$user' },
                     {
                       $lookup: {
-                        "from": "users",
-                        "let": { user_id: "$reply_user" },
-                        "pipeline": [
-                          { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
-                          { $project: { name: 1, avatar: 1 } }
+                        from: 'users',
+                        let: { user_id: '$reply_user' },
+                        pipeline: [
+                          { $match: { $expr: { $eq: ['$_id', '$$user_id'] } } },
+                          { $project: { name: 1, avatar: 1 } },
                         ],
-                        "as": "reply_user",
+                        as: 'reply_user',
                       },
                     },
-                    { $unwind: "$reply_user" },
+                    { $unwind: '$reply_user' },
                   ],
-                  as: "replyCM",
+                  as: 'replyCM',
                 },
               },
               { $sort: { createdAt: -1 } },
@@ -107,13 +107,13 @@ class CommentController {
                   reply_user: { $exists: false },
                 },
               },
-              { $count: "count" },
+              { $count: 'count' },
             ],
           },
         },
         {
           $project: {
-            count: { $arrayElemAt: ["$totalCount.count", 0] },
+            count: { $arrayElemAt: ['$totalCount.count', 0] },
             totalData: 1,
           },
         },
@@ -138,7 +138,7 @@ class CommentController {
   }
   async replyComment(req: IReqAuth, res: Response) {
     if (!req.user)
-      return res.status(400).json({ msg: "Invalid Authentication." });
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
 
     try {
       const { content, blog_id, blog_user_id, comment_root, reply_user } =

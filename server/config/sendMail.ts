@@ -1,7 +1,7 @@
-import nodemailer from "nodemailer";
-import { OAuth2Client } from "google-auth-library";
+import nodemailer from 'nodemailer';
+import { OAuth2Client } from 'google-auth-library';
 
-const OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground";
+const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground';
 
 const CLIENT_ID = `${process.env.MAIL_CLIENT_ID}`;
 const CLIENT_SECRET = `${process.env.MAIL_CLIENT_SECRET}`;
@@ -21,9 +21,9 @@ async function sendMail(to: string, url: string, txt: string) {
     const access_token = await oAuth2Client.getAccessToken();
 
     const transport = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
-        type: "OAUTH2",
+        type: 'OAUTH2',
         user: SENDER_MAIL,
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
@@ -35,7 +35,7 @@ async function sendMail(to: string, url: string, txt: string) {
     const mailOption = {
       from: SENDER_MAIL,
       to: to,
-      subject: "BlogTy",
+      subject: 'BlogTy',
       html: `
       <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
       <h2 style="text-align: center; text-transform: uppercase;color: teal;">Welcome to the DevAT channel.</h2>
