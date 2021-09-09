@@ -39,7 +39,7 @@ const Login = () => {
             {sms ? "Sign in with password" : "Sign in with SMS"}
           </span>
         </small>
-
+        
         <p>
           {`You don't have an account? `}
           <Link

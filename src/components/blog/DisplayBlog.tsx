@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { IBlog, RootStore, IUser, IComment } from "../../utils/TypeScript";
 
 import Input from "../comments/Input";
 import Comments from "../comments/Comments";
+
+import Loading from '../global/Loading'
+import Pagination from '../global/Pagination'
 
 import { createComment, getComments } from "../../redux/actions/commentAction";
 
@@ -19,6 +22,8 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
 
   const [showComments, setShowComments] = useState<IComment[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const history = useHistory()
 
   const handleComment = (body: string) => {
     if (!auth.user || !auth.access_token) return;
@@ -40,9 +45,9 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
   }, [comment.data]);
 
   const fetchComments = useCallback(
-    async (id: string) => {
+    async (id: string, num = 1) => {
       setLoading(true);
-      dispatch(getComments(id));
+      dispatch(getComments(id, num));
       setLoading(false);
     },
     [dispatch]
@@ -50,9 +55,14 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
 
   useEffect(() => {
     if (!blog._id) return;
+    const num = history.location.search.slice(6) || 1
+    fetchComments(blog._id, num);
+  }, [blog._id, fetchComments, history]);
 
-    fetchComments(blog._id);
-  }, [blog._id, fetchComments]);
+  const handlePagination = (num: number) => {
+    if (!blog._id) return;
+    fetchComments(blog._id, num);
+  }
 
   return (
     <div>
@@ -90,11 +100,23 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
         </h5>
       )}
 
-      {showComments?.map((comment, index) => (
-        <Comments key={index} comment={comment} />
-      ))}
+      {
+        loading
+        ? <Loading />
+        : showComments?.map((comment, index) => (
+            <Comments key={index} comment={comment} />
+          ))
+      }
+
+      {
+        comment.total > 1 &&
+        <Pagination total={comment.total}
+        callback={handlePagination}
+        />
+      }
+
     </div>
   );
 };
 
-export default DisplayBlog;
+export default DisplayBlog

@@ -29,9 +29,10 @@ export const createComment =
   };
 
 export const getComments =
-  (id: string) => async (dispatch: Dispatch<IAlertType | IGetCommentsType>) => {
+  (id: string, num: number) => async (dispatch: Dispatch<IAlertType | IGetCommentsType>) => {
     try {
-      const res = await getAPI(`comments/blog/${id}`);
+      const limit = 4;
+      const res = await getAPI(`comments/blog/${id}?page=${num}&limit=${limit}`);
 
       dispatch({
         type: GET_COMMENTS,

@@ -24,6 +24,7 @@ const LiteQuill: React.FC<IProps> = ({ body, setBody }) => {
 };
 
 let container = [
+  [{ 'font': [] }],
   ["bold", "italic", "underline", "strike"],
   ["blockquote", "code-block"],
   [{ color: [] }, { background: [] }],
