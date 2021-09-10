@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import io from 'socket.io-client';
+
 import PageRender from './PageRender';
 import Header from './components/global/Header';
 import Footer from './components/global/Footer';
@@ -19,6 +21,14 @@ function App() {
     dispatch(getHomeBlogs());
     dispatch(refreshToken());
     dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const socket = io();
+    dispatch({ type: 'SOCKET', payload: socket });
+    return () => {
+      socket.close();
+    };
   }, [dispatch]);
 
   return (

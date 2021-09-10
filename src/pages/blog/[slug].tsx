@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { getAPI } from '../../utils/FetchData';
 
-import { IBlog, IParams } from '../../utils/TypeScript';
+import { IBlog, IParams, RootStore } from '../../utils/TypeScript';
 
 import Loading from '../../components/global/Loading';
 import { showErrMsg } from '../../components/alert/Alert';
@@ -11,6 +12,7 @@ import DisplayBlog from '../../components/blog/DisplayBlog';
 
 function DetailBlog() {
   const id = useParams<IParams>().slug;
+  const { socket } = useSelector((state: RootStore) => state);
 
   const [blog, setBlog] = useState<IBlog>();
   const [loading, setLoading] = useState(false);
@@ -31,6 +33,15 @@ function DetailBlog() {
 
     return () => setBlog(undefined);
   }, [id]);
+
+  useEffect(() => {
+    if (!id || !socket) return;
+    socket.emit('joinRoom', id);
+
+    return () => {
+      socket.emit('outRoom', id);
+    };
+  }, [socket, id]);
 
   if (loading) return <Loading />;
   return (
