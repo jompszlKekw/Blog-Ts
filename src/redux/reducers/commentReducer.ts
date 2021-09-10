@@ -33,7 +33,7 @@ const commentReducer = (
           item._id === action.payload.comment_root
             ? {
                 ...item,
-                replyCM: [action.payload, ...(item.replyCM as [])],
+                replyCM: [action.payload, ...item.replyCM],
               }
             : item
         ),

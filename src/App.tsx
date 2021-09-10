@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import io from 'socket.io-client';
 
+import SocketClient from './SocketClient';
+
 import PageRender from './PageRender';
 import Header from './components/global/Header';
 import Footer from './components/global/Footer';
@@ -33,6 +35,7 @@ function App() {
 
   return (
     <div className="container">
+      <SocketClient />
       <Router>
         <Alert />
         <Header />

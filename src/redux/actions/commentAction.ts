@@ -3,13 +3,11 @@ import { Dispatch } from 'redux';
 
 import { ALERT, IAlertType } from '../types/alertType';
 import {
-  CREATE_COMMENT,
   GET_COMMENTS,
   ICreateCommentType,
   IGetCommentsType,
   IReplyCommentType,
   IUpdateType,
-  REPLY_COMMENTS,
   UPDATE_COMMENTS,
   UPDATE_REPLY,
   IDeleteType,
@@ -24,12 +22,7 @@ export const createComment =
   (data: IComment, token: string) =>
   async (dispatch: Dispatch<IAlertType | ICreateCommentType>) => {
     try {
-      const res = await postAPI('comment', data, token);
-
-      dispatch({
-        type: CREATE_COMMENT,
-        payload: { ...res.data, user: data.user },
-      });
+      await postAPI('comment', data, token);
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
@@ -57,12 +50,7 @@ export const replyComment =
   (data: IComment, token: string) =>
   async (dispatch: Dispatch<IAlertType | IReplyCommentType>) => {
     try {
-      const res = await postAPI('reply_comment', data, token);
-
-      dispatch({
-        type: REPLY_COMMENTS,
-        payload: { ...res.data, user: data.user, reply_user: data.reply_user },
-      });
+      await postAPI('reply_comment', data, token);
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
@@ -76,13 +64,7 @@ export const updateComment =
         type: data.comment_root ? UPDATE_REPLY : UPDATE_COMMENTS,
         payload: data,
       });
-      await patchAPI(
-        `comment/${data._id}`,
-        {
-          content: data.content,
-        },
-        token
-      );
+      await patchAPI(`comment/${data._id}`, { data }, token);
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
