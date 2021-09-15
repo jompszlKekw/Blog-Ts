@@ -238,6 +238,27 @@ class BlogController {
       return res.status(500).json(err);
     }
   }
+  async updateBlog(req: IReqAuth, res: Response) {
+    if (!req.user)
+      return res.status(400).json({ msg: 'Invalid Authentication.' });
+
+    try {
+      const blog = await Blog.findOneAndUpdate(
+        {
+          id: req.params.id,
+          user: req.user._id,
+        },
+        req.body
+      );
+
+      if (!blog)
+        return res.status(400).json({ msg: 'Invalid Authentication.' });
+
+      res.json({ msg: 'Update Success', blog });
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
 }
 
 export { BlogController };
