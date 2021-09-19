@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getOtherInfo } from '../../redux/actions/profileAction';
+import { getOtherInfo } from '../../redux/actions/userAction';
 import { IUser, RootStore } from '../../utils/TypeScript';
 
 import NotFound from '../global/NotFound';

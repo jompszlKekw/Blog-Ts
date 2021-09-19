@@ -11,13 +11,17 @@ import {
 import { postAPI, getAPI, patchAPI, deleteAPI } from '../../utils/FetchData';
 import { ICategory } from '../../utils/TypeScript';
 
+import { checkTokenExp } from '../../utils/checkTokenExp';
+
 export const createCategory =
   (name: string, token: string) =>
   async (dispatch: Dispatch<IAlertType | ICategoryType>) => {
+    const result = await checkTokenExp(token, dispatch);
+    const access_token = result ? result : token;
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
 
-      const res = await postAPI('category', { name }, token);
+      const res = await postAPI('category', { name }, access_token);
 
       dispatch({
         type: CREATE_CATEGORY,
@@ -51,10 +55,12 @@ export const getCategories =
 export const updateCategory =
   (data: ICategory, token: string) =>
   async (dispatch: Dispatch<IAlertType | ICategoryType>) => {
+    const result = await checkTokenExp(token, dispatch);
+    const access_token = result ? result : token;
     try {
       dispatch({ type: UPDATE_CATEGORY, payload: data });
 
-      await patchAPI(`category/${data._id}`, { name: data.name }, token);
+      await patchAPI(`category/${data._id}`, { name: data.name }, access_token);
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
@@ -63,10 +69,12 @@ export const updateCategory =
 export const deleteCategory =
   (id: string, token: string) =>
   async (dispatch: Dispatch<IAlertType | ICategoryType>) => {
+    const result = await checkTokenExp(token, dispatch);
+    const access_token = result ? result : token;
     try {
       dispatch({ type: DELETE_CATEGORY, payload: id });
 
-      await deleteAPI(`category/${id}`, token);
+      await deleteAPI(`category/${id}`, access_token);
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
     }
