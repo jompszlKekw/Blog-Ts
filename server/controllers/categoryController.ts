@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Category } from '../models/categoryModel';
+import { Blog } from '../models/blogModel';
 import { IReqAuth } from '../config/interfaces';
 
 class CategoryController {
@@ -62,8 +63,17 @@ class CategoryController {
 
     if (req.user.role !== 'admin')
       return res.status(400).json({ msg: 'Invalid Authentication.' });
+
     try {
+      const blog = await Blog.findOne({ category: req.params.id });
+      if (blog)
+        return res
+          .status(400)
+          .json({ msg: 'Can not delete! In this category also exists blogs.' });
+
       const category = await Category.findByIdAndDelete(req.params.id);
+      if (!category)
+        return res.status(400).json({ msg: 'Category does not exists' });
 
       res.json({ msg: 'Delete Success' });
     } catch (err) {

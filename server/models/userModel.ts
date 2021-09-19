@@ -7,6 +7,7 @@ export interface IUser extends Document {
   avatar: string;
   role: string;
   type: string;
+  rf_token: string;
   _doc: object;
 }
 
@@ -32,6 +33,7 @@ const userSchema: Schema = new Schema(
     },
     role: { type: String, default: 'user' },
     type: { type: String, default: 'register' },
+    rf_token: { type: String, select: false },
   },
   { timestamps: true }
 );

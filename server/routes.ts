@@ -23,7 +23,7 @@ routes.post('/api/active', authController.activeAccount);
 routes.get('/api/refresh_token', authController.refreshToken);
 
 routes.post('/api/login', authController.login);
-routes.get('/api/logout', authController.logout);
+routes.get('/api/logout', auth, authController.logout);
 
 routes.post('/api/google_login', authController.googleLogin);
 routes.post('/api/facebook_login', authController.facebookLogin);

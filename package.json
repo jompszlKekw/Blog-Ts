@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev server/index.ts",
-    "style": "prettier --write server/**/*.ts client/**/*.ts "
+    "style": "prettier --write server/**/*.ts client/**/*.tsx "
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
