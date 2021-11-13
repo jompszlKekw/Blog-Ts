@@ -1,2 +1,2 @@
 # Blog-Ts
-Typescript | Redux  | Bootstrap 5 | ReactQuill | Socket.io | Twilio
+typescript, redux, bootstrap, reactQuill, socket.io, twilio, oauth
